@@ -1,0 +1,27 @@
+{
+    "very_bad": {
+        "--glitches": "1000,100,100",
+        "--junk_reads": "5",
+        "--random_reads": "5",
+        "--chimeras": "10",
+        "--identity": "80,90,6",
+        "--length": "4000,2000"
+    },
+    "pretty_good": {
+        "--glitches": "10000,10,10",
+        "--junk_reads": "0.1",
+        "--random_reads": "0.1",
+        "--chimeras": "0.1",
+        "--identity": "20,3"
+    },
+    "very_good": {
+        "--error_model": "random",
+        "--qscore_model": "ideal",
+        "--glitches": "0,0,0",
+        "--junk_reads": "0",
+        "--random_reads": "0",
+        "--chimeras": "0",
+        "--identity": "30,3",
+        "--length": "40000,20000"
+    }
+}
