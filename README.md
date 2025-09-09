@@ -54,12 +54,12 @@ See the [Badread repository](https://github.com/rrwick/Badread) for full source 
         python LRS.py --help
         ```
 
-    _note that for the command line version, beside the input fasta file and quality preset, a file specifying the number of reads and quality per sequence header from the fasta file is also required as shown in the example below in a tab-delimited format :_
+        _note that for the command line version, beside the input fasta file and quality preset, a file specifying the number of reads and quality per sequence header from the fasta file is also required as shown in the example below in a tab-delimited format :_
 
-    ```bash
-        sequence header 1	1000	very_bad
-        sequence_header_2	500 pretty_good
-    ```
+        ```bash
+            sequence header 1	1000	very_bad
+            sequence_header_2	500 pretty_good
+        ```
 
     - Browser interface:
 
