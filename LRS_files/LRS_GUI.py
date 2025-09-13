@@ -77,7 +77,7 @@ if fasta_file:
                     st.rerun()
 
     # set output directory & additional options
-    output_dir = st.text_input("Output directory", value="output_streamlit")
+    output_dir = st.text_input("Output directory", value="output_LRS")
     run_nanoplot = st.checkbox("Run NanoPlot on combined reads")
     plot_composition = st.checkbox("Plot sample composition")
     remove_temp = st.checkbox("Remove temporary files (simulated sequences)")
