@@ -27,10 +27,10 @@ See the [Badread repository](https://github.com/rrwick/Badread) for full source 
     git clone https://github.com/MaxvanGils/LongReadSampler
     ```
 
-2. Navigate to the LongReadSampler directory:
+2. Navigate to the LongReadSampler files directory:
 
     ```bash
-    cd LRS
+    cd LongReadSampler/LRS_files
     ```
 
 3. Create and activate the Conda environment:
@@ -54,7 +54,7 @@ See the [Badread repository](https://github.com/rrwick/Badread) for full source 
         python LRS.py --help
         ```
 
-        _note that for the command line version, beside the input fasta file and quality preset, a file specifying the number of reads and quality per sequence header from the fasta file is also required as shown in the example below in a tab-delimited format :_
+        _note that for the command line version, beside the input fasta file and quality preset, a "target.txt" file specifying the number of reads and quality per sequence header from the fasta file is also required as shown in the example below in a tab-delimited format :_
 
         ```bash
             sequence header 1	1000	very_bad
