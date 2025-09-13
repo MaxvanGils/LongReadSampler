@@ -67,7 +67,7 @@ See the [Badread repository](https://github.com/rrwick/Badread) for full source 
         streamlit run LRS_GUI.py
         ```
 
-        Afterwards, open the provided local URL in your browser and upload a fasta file to get started.
+        Afterwards, open the provided local URL in your browser and upload a fasta file to get started. It loads the default quality presets from the `quality_presets.json` file, but you can also add your own presets (see below).
 
 For creating custom quality presets for the simulation, add either a new .json file or add a new entry to the `quality_presets.json` file. See the [Badread documentation](https://github.com/rrwick/Badread) for more information on the parameters.
 
@@ -81,7 +81,7 @@ This application is currently only tested locally, not on a server based setting
 
 If you use LRS in your research or projects, please cite this repository as follows:
 
-Max van Gils, LongReadSampler: A Streamlit GUI wrapper for Badread, GitHub repository <https://github.com/MaxvanGils/LongReadSampler>, [2025]
+Max van Gils, LongReadSampler: A wrapper for long read simulation using Badread, GitHub repository <https://github.com/MaxvanGils/LongReadSampler>, [2025]
 
 Please also cite the original Badread paper and/or repository:
 
