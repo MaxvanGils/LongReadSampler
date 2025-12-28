@@ -130,7 +130,14 @@ if fasta_file:
 
     # show selected targets and with option to remove set sequences
     if st.session_state.targets:
-        st.write("### Selected Targets")
+        col_header, col_remove_all = st.columns([4, 1])
+        with col_header:
+            st.write("### Selected Targets")
+        with col_remove_all:
+            if st.button("Remove all targets"):
+                st.session_state.targets = []
+                st.rerun()
+
         for idx, t in enumerate(st.session_state.targets):
             col1, col2 = st.columns([4, 1])
             with col1:
