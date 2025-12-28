@@ -67,7 +67,7 @@ See the [Badread repository](https://github.com/rrwick/Badread) for full source 
         streamlit run LRS_GUI.py
         ```
 
-        Afterwards, open the provided local URL in your browser and upload a fasta file to get started. It loads the default quality presets from the `quality_presets.json` file, but you can also add your own presets (see below). Additionally, users can upload a tsv or csv file with set percentages per species to be simulated. The "columns" of the files are set in the GUI, after which the user can then specify the total number of reads to simulate, as well as the preset quality. (Note, this will make all of the to be simulated reads to one quality preset. IF you want to utilise multiple presets, you could add them in parts with different tsv files)
+        Afterwards, open the provided local URL in your browser and upload a fasta file to get started. It loads the default quality presets from the `quality_presets.json` file, but you can also add your own presets (see below). Additionally, users can upload a tsv or csv file with set percentages (with a . as decimal sign) per species to be simulated. The "columns" of the files are set in the GUI, after which the user can then specify the total number of reads to simulate, as well as the preset quality. (Note, this will make all of the to be simulated reads to one quality preset. IF you want to utilise multiple presets, you could add them in parts with different tsv files)
 
 For creating custom quality presets for the simulation, add either a new .json file or add a new entry to the `quality_presets.json` file. See the [Badread documentation](https://github.com/rrwick/Badread) for more information on the parameters.
 
