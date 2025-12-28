@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import tempfile
+import csv
 from Bio import SeqIO
 import json
 import shutil
@@ -42,6 +43,65 @@ if fasta_file:
         fasta_path = tmp_fasta.name
 
     all_headers = [seq.description for seq in SeqIO.parse(fasta_path, "fasta")]
+
+    # optional: load a CSV/TSV file that contains species and percentage columns (collapsible)
+    with st.expander("Import composition (CSV/TSV)", expanded=False):
+        composition_file = st.file_uploader("Upload composition CSV/TSV (species + percentage)", type=["csv", "tsv", "txt"])    
+        comp_preview = None
+        if composition_file:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".csv") as tmp_comp:
+                tmp_comp.write(composition_file.read())
+                comp_path = tmp_comp.name
+
+            # attempt to detect delimiter and read header
+            try:
+                with open(comp_path, newline='', encoding='utf-8') as f:
+                    sample = f.read(2048)
+                    f.seek(0)
+                    try:
+                        dialect = csv.Sniffer().sniff(sample, delimiters=[',', '\t', ';'])
+                    except Exception:
+                        dialect = csv.get_dialect('excel')
+                        dialect.delimiter = ','
+                    reader = csv.DictReader(f, dialect=dialect)
+                    fieldnames = reader.fieldnames or []
+
+                if not fieldnames:
+                    st.warning('Uploaded file does not contain a header row; column selection requires headers.')
+                else:
+                    st.markdown('**Import composition from file**')
+                    species_col = st.selectbox('Species column', fieldnames, index=0)
+                    perc_col = st.selectbox('Percentage column', fieldnames, index=min(1, len(fieldnames)-1))
+                    total_reads = st.number_input('Total reads to distribute', min_value=1, value=1000)
+                    default_preset_for_file = st.selectbox('Default quality preset for imported species', list(quality_presets.keys()))
+
+                    if st.button('Import composition file'):
+                        added = 0
+                        with open(comp_path, newline='', encoding='utf-8') as f:
+                            reader = csv.DictReader(f, dialect=dialect)
+                            for row in reader:
+                                name = row.get(species_col, '').strip()
+                                perc_raw = row.get(perc_col, '').strip()
+                                if not name or not perc_raw:
+                                    continue
+                                # allow percentages like '12.5' or '12.5%'
+                                try:
+                                    perc = float(perc_raw.strip().rstrip('%'))
+                                except Exception:
+                                    continue
+                                number = max(1, int(round(total_reads * perc / 100.0)))
+                                st.session_state.targets.append({
+                                    "header": name,
+                                    "number": int(number),
+                                    "sim_quality": default_preset_for_file,
+                                })
+                                added += 1
+
+                        st.success(f'Imported {added} species from composition file.')
+            except:
+                st.error('Failed to read the uploaded composition file. Please ensure it is a valid CSV/TSV file.')
+
+    st.markdown('#') 
 
     st.subheader("Select sequences and simulation parameters")
 
