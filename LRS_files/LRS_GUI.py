@@ -44,7 +44,7 @@ if fasta_file:
 
     all_headers = [seq.description for seq in SeqIO.parse(fasta_path, "fasta")]
 
-    # optional: load a CSV/TSV file that contains species and percentage columns (collapsible)
+    # optional: load a CSV/TSV file that contains species and percentage columns in a collapsible element
     with st.expander("Import composition (CSV/TSV)", expanded=False):
         composition_file = st.file_uploader("Upload composition CSV/TSV (species + percentage)", type=["csv", "tsv", "txt"])    
         comp_preview = None
@@ -105,24 +105,28 @@ if fasta_file:
 
     st.subheader("Select sequences and simulation parameters")
 
-    # session_state to store selected targets
-    if "targets" not in st.session_state:
-        st.session_state.targets = []
+    # turn the add-sequence form into collapsible ellement
+    with st.expander("Add or select sequences", expanded=True):
+        # session_state to store selected targets
+        if "targets" not in st.session_state:
+            st.session_state.targets = []
 
-    # select sequences, qualities and quantities for simulation and sampling
-    with st.form("add_sequence_form"):
-        seq_choice = st.selectbox("Select a sequence", all_headers, index=0)
-        preset_choice = st.selectbox("Quality preset", list(quality_presets.keys()))
-        count_choice = st.number_input("Read count", min_value=1, value=100)
+        # select sequences, qualities and quantities for simulation and sampling
+        with st.form("add_sequence_form"):
+            seq_choice = st.selectbox("Select a sequence", all_headers, index=0)
+            preset_choice = st.selectbox("Quality preset", list(quality_presets.keys()))
+            count_choice = st.number_input("Read count", min_value=1, value=100)
 
-        add_btn = st.form_submit_button("Add this sequence")
-        if add_btn:
-            st.session_state.targets.append({
-                "header": seq_choice,
-                "number": int(count_choice),
-                "sim_quality": preset_choice,
-            })
-            st.rerun()
+            add_btn = st.form_submit_button("Add this sequence")
+            if add_btn:
+                st.session_state.targets.append({
+                    "header": seq_choice,
+                    "number": int(count_choice),
+                    "sim_quality": preset_choice,
+                })
+                st.rerun()
+
+    st.markdown('#')
 
     # show selected targets and with option to remove set sequences
     if st.session_state.targets:
